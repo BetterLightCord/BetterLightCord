@@ -55,14 +55,14 @@ Alternatively, download the installer from the [releases tab](https://github.com
 
 # Running From Source
 
-Prerequisites: [Node.js](https://nodejs.org/en/) and NPM
+Prerequisites: [Node.js](https://nodejs.org/en/) and yarn
 To run from source, follow these instructions:
 
 ```bash
 git clone https://github.com/Lightcord/Lightcord
 cd Lightcord
-npm run devInstall
-npm test
+yarn devInstall
+yarn test
 ```
 
 *You will have to do that every time you pull/clone*
@@ -74,5 +74,5 @@ Lightcord will then launch. If you see the Lightcord icon, you're good to go!
 Any time you want to launch, just run:
 
 ```bash
-npm start
+yarn start
 ```

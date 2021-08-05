@@ -102,7 +102,8 @@ function launchSplashWindow(startMinimized = false) {
     show: false,
     webPreferences: {
       nodeIntegration: true,
-      enableRemoteModule: true
+      enableRemoteModule: true,
+      contextIsolation: false
     },
     icon: path.join(__dirname, "..", "modules", "discord_desktop_core", "core", "app", "images", "discord.png")
   };
@@ -116,12 +117,9 @@ function launchSplashWindow(startMinimized = false) {
   // prevent users from dropping links to navigate in splash window
   splashWindow.webContents.on('will-navigate', e => e.preventDefault());
 
-  splashWindow.webContents.on('new-window', (e, windowURL) => {
-    e.preventDefault();
-    electron.shell.openExternal(windowURL);
-    // exit, but delay half a second because openExternal is about to fire
-    // some events to things that are freed by app.quit.
-    setTimeout(electron.app.quit, 500);
+  splashWindow.webContents.setWindowOpenHandler((details) => {
+    electron.shell.openExternal(details.url);
+    return { action: 'deny' };
   });
 
   if (process.platform !== 'darwin') {
@@ -141,9 +139,7 @@ function launchSplashWindow(startMinimized = false) {
       webContentsSend(splashWindow, 'SPLASH_SCREEN_QUOTE', cachedQuote);
     }
 
-    if (splashWindow && !startMinimized) {
-      splashWindow.show();
-    }
+    splashWindow.show();
 
     moduleUpdater.installPendingUpdates();
 

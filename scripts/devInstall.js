@@ -19,12 +19,9 @@ function spawnProcess(cmd, ...args) {
     }
 
 }
-spawnProcess("npm", "rm", "electron")
-spawnProcess("npm", "i")
-const arch = process.platform === "win32" ? "ia32" : "x64"
-spawnProcess("npm", "i", "--save-dev", "--arch="+arch, "electron@9")
+spawnProcess("yarn")
 
 spawnProcess("node", join(PROJECT_DIRNAME, "scripts", "installSubModules.js"))
 
 
-console.log("Everything is installed. You should be able to do `npm test` to compile everything and launch.")
+console.log("Everything is installed. You should be able to do `yarn test` to compile everything and launch.")

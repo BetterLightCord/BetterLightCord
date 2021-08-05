@@ -1,4 +1,8 @@
-const VoiceEngine = require('./discord_voice_'+process.platform+'.node');
+if(process.arch === 'arm64') {
+  const VoiceEngine = {};
+} else {
+  const VoiceEngine = require('./discord_voice_'+process.platform+'.node');
+}
 const fs = require('fs');
 const path = require('path');
 const yargs = require('yargs');
@@ -67,6 +71,16 @@ if (debugLogging && console.discordVoiceHooked == null) {
       };
     }
   }
+}
+
+// Do nothing on arm64 for now, we can't decompile native code (and recompile it for arm64) easily
+// without breaking compatibility.
+if (process.arch === 'arm64') {
+  console.warn("Voice engine: Not supported");
+  module.exports = {
+    consoleLog = (...args) => {},
+  }
+  return;
 }
 
 features.declareSupported('voice_panning');

@@ -1,5 +1,5 @@
 const EventEmitter = require('events');
-const {CloudSync: CloudSyncNative} = require('./discord_cloudsync_'+process.platform+'.node');
+const {CloudSync: CloudSyncNative} = require('./discord_cloudsync.node');
 
 const BACKSLASH_REGEX = /\\/g;
 const ID_REGEX = /^[0-9]+$/;

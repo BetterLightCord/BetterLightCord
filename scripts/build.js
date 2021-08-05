@@ -117,8 +117,8 @@ async function main(){
 
     await fs.promises.mkdir(PROJECT_DIR+"/distApp/dist", {"recursive": true})
     
-    console.info("Executing command `npm run compile`")
-    child_process.execSync("npm run compile", {
+    console.info("Executing command `yarn compile`")
+    child_process.execSync("yarn compile", {
         encoding: "binary",
         stdio: "inherit"
     })
@@ -166,7 +166,7 @@ async function main(){
         }
     
         console.info(`Installing modules for ${mdl}`)
-        child_process.execSync("npm install --only=prod", {
+        child_process.execSync("yarn --production", {
             encoding: "binary",
             cwd: dir,
             stdio: "inherit"
@@ -194,7 +194,7 @@ async function main(){
         console.info(`Copied files and minified them from ${path.join(PROJECT_DIR, "LightcordApi")}.`)
     })
     
-    child_process.execSync("npm install --only=prod", {
+    child_process.execSync("yarn --production", {
         encoding: "binary",
         cwd: path.join(PROJECT_DIR, "distApp", "LightcordApi"),
         stdio: "inherit"
@@ -220,7 +220,7 @@ async function main(){
     await processDJS("dist")
     await copyFileDJS("package.json")
     
-    child_process.execSync("npm install --only=prod", {
+    child_process.execSync("yarn --production", {
         encoding: "binary",
         cwd: path.join(PROJECT_DIR, "distApp", "DiscordJS"),
         stdio: "inherit"
@@ -272,7 +272,7 @@ async function main(){
     fs.writeFileSync(path.join(PROJECT_DIR, "distApp", "package.json"), JSON.stringify(packageJSON), "utf8")
     
     console.info(`Installing ${Object.keys(packageJSON.dependencies).length} packages...`)
-    child_process.execSync("npm install --only=prod", {
+    child_process.execSync("yarn --production", {
         encoding: "binary",
         cwd: path.join(PROJECT_DIR, "distApp"),
         stdio: "inherit"

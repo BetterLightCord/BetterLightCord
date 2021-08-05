@@ -14,14 +14,14 @@ spawnSync("tsc", PROJECT_DIR)
 if (!existsSync(join(PROJECT_DIR, "BetterDiscordApp", "dist"))){
     mkdirSync(join(PROJECT_DIR, "BetterDiscordApp", "dist"))
 }
-spawnSync("npm run build", join(PROJECT_DIR, "BetterDiscordApp"))
-spawnSync("npm run build-prod", join(PROJECT_DIR, "BetterDiscordApp"))
-spawnSync("npm run minify-css", join(PROJECT_DIR, "BetterDiscordApp"))
+spawnSync("yarn build", join(PROJECT_DIR, "BetterDiscordApp"))
+spawnSync("yarn build-prod", join(PROJECT_DIR, "BetterDiscordApp"))
+spawnSync("yarn minify-css", join(PROJECT_DIR, "BetterDiscordApp"))
 /** DiscordJS */
-spawnSync("npm run build", join(PROJECT_DIR, "DiscordJS"))
+spawnSync("yarn build", join(PROJECT_DIR, "DiscordJS"))
 /** LightcordApi */
-spawnSync("npm run build", join(PROJECT_DIR, "LightcordApi"))
-spawnSync("npm run build-prod", join(PROJECT_DIR, "LightcordApi"))
+spawnSync("yarn build", join(PROJECT_DIR, "LightcordApi"))
+spawnSync("yarn build-prod", join(PROJECT_DIR, "LightcordApi"))
 spawnSync("tsc", join(PROJECT_DIR, "LightcordApi"))
 
 var exitedWithErrorProcessList = [];

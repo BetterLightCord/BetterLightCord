@@ -30,7 +30,9 @@ var ipcMain = {
   }
 };
 ipcMain.on('OPEN_EXTERNAL_URL', function (e, externalUrl) {
-  saferShellOpenExternal(externalUrl);
+  saferShellOpenExternal(externalUrl)["catch"](function (_err) {
+    console.error('Failed to open external URL', externalUrl);
+  });
 });
 
 function webContentsSend(win, event) {

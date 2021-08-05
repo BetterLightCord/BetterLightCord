@@ -34,10 +34,11 @@ export function LazyLoad<T>(getObject: () => T):T{
             delete mdl[prop]
             return true
         },
-        enumerate(target){
+        // Removed in TS 4.2
+        /*enumerate(target){
             setModule()
             return Object.keys(mdl)
-        },
+        },*/
         ownKeys(target) {
             setModule()
             return Object.keys(mdl)

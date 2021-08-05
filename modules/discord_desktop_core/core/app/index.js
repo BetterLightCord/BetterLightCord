@@ -1,8 +1,5 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 exports.startup = startup;
 exports.handleOpenUrl = handleOpenUrl;
 exports.setMainWindowVisible = setMainWindowVisible;
@@ -11,7 +8,7 @@ const {
   Menu,
   BrowserWindow
 } = require('electron');
-const fetch = require("node-fetch").default
+const fetch = require("node-fetch");
 
 let mainScreen
 

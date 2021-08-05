@@ -62,11 +62,7 @@ var _updater = _interopRequireDefault(require("./updater"));
 
 var notificationScreen = _interopRequireWildcard(require("./notificationScreen"));
 
-var paths = _interopRequireWildcard(require("./paths"));
-
 var popoutWindows = _interopRequireWildcard(require("./popoutWindows"));
-
-var splashScreen = _interopRequireWildcard(require("./splashScreen"));
 
 var systemTray = _interopRequireWildcard(require("./systemTray"));
 
@@ -469,6 +465,8 @@ function launchMainAppWindow(isVisible) {
   const useGlasstron = settings.get("GLASSTRON", true)
   const BrowserWindow = useGlasstron ? glasstron.BrowserWindow : _electron.BrowserWindow
   mainWindow = new BrowserWindow(mainWindowOptions);
+  // Show devtools
+  mainWindow.webContents.openDevTools();
   mainWindowId = mainWindow.id;
   global.mainWindowId = mainWindowId;
 
@@ -493,6 +491,7 @@ function launchMainAppWindow(isVisible) {
     }
   }
 
+  // TODO(@AaronDewes): This is deprecated
   mainWindow.webContents.on('new-window', (e, windowURL, frameName, disposition, options) => {
     e.preventDefault();
 

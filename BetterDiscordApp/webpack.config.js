@@ -42,7 +42,7 @@ module.exports = {
         test: /\.jsx?$/,
         loader: "babel-loader",
         exclude: /node_modules/,
-        query: {
+        options: {
           presets: [["@babel/env", {
             targets: {
                 node: "12.8.1",
@@ -66,7 +66,6 @@ module.exports = {
   optimization: {
     minimizer: [
       new TerserPlugin({
-        sourceMap: true,
         terserOptions: {
           compress: {drop_debugger:false}
         },

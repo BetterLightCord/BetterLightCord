@@ -2,7 +2,7 @@
     This script removes ignored directories 
     By default it only removes all the "node_modules" directories.
     Using it with "all" removes the "dist", "distApp", and "builds" dirs too.
-    To run this script, use `npm run clean` or `npm run clean:all`.
+    To run this script, use `yarn clean` or `yarn clean:all`.
 */
 let test;
 try {

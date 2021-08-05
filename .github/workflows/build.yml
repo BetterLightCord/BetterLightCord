@@ -18,8 +18,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - run: npm run devInstall
-      - run: npm run compile
+      - run: yarn devInstall
+      - run: yarn compile
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:

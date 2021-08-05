@@ -10,19 +10,19 @@ const Platforms = {
     linux: {
         name: "linux",
         run: () => {
-            return awaitExec("npm", ["run", "build:electron_linux"])
+            return awaitExec("yarn", ["build:electron_linux"])
         }
     },
     win: {
         name: "win",
         run: () => {
-            return awaitExec("npm", ["run", "build:electron_win"])
+            return awaitExec("yarn", ["build:electron_win"])
         }
     },
     mac: {
         name: "mac",
         run: () => {
-            return awaitExec("npm", ["run", "build:electron_mac"])
+            return awaitExec("yarn", ["build:electron_mac"])
         }
     },
     mac_experimental: {

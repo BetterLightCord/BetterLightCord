@@ -39,7 +39,7 @@ module.exports = {
             test: /\.jsx?$/,
             loader: "babel-loader",
             exclude: /node_modules/,
-            query: {
+            options: {
                 presets: [
                     ["@babel/env", {
                         targets: {
@@ -58,9 +58,7 @@ module.exports = {
     optimization: {
         minimizer: [
             new TerserPlugin({
-                cache: true,
                 parallel: true,
-                sourceMap: true, 
                 terserOptions: {
                     mangle: false,
                     keep_classnames: true,

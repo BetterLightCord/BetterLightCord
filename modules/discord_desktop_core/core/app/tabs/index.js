@@ -91,7 +91,7 @@ window.onload = () => {
             favicon: faviconURL
         })
         let webview = document.createElement("webview")
-        webview.src = "https://discord.com/app"
+        webview.src = "https://canary.discord.com/app"
         webview.classList.add("discord-webview")
         webview.classList.add("webview-active")
         webview.setAttribute("preload", pathToFileURL(join(__dirname, "../tabPreload.js")))

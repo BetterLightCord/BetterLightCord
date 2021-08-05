@@ -9,12 +9,12 @@ const MODULES_DIRNAME = path.join(PROJECT_DIR, "modules")
 var exitedWithErrorProcessList = [];
 
 function spawnNpmInstallProcess (targetDir) {
-    child_process.spawn((process.platform === "win32" ? "npm.cmd" : "npm"), ["i"], {
+    child_process.spawn((process.platform === "win32" ? "yarn.cmd" : "yarn"), [], {
         cwd: targetDir,
         env: process.env,
         stdio: "inherit"
     }).on("error", (err) => {
-        console.log("Error while running 'npm i' in target directory " + targetDir)
+        console.log("Error while running 'yarn' in target directory " + targetDir)
         console.error(err)
         exitedWithErrorProcessList.push(targetDir)
     })
@@ -44,7 +44,7 @@ spawnNpmInstallProcess(DISCORDJS_DIRNAME)
 
 process.on("beforeExit", () => {
     if (exitedWithErrorProcessList.length != 0){
-        console.error("Failed to run 'npm install' on:\n")
+        console.error("Failed to run 'yarn' on:\n")
         exitedWithErrorProcessList.forEach((val)=>{
             console.error(val)
         });

@@ -1,5 +1,4 @@
-import * as uuidv1 from "uuid/v1"
-import * as uuidv4 from "uuid/v4"
+import {v1 as uuidv1, v4 as uuidv4} from "uuid";
 
 type uuidFunc = () => string
 let uuid:uuidFunc & {v1: uuidFunc, v4: uuidFunc} = Object.assign(function(){

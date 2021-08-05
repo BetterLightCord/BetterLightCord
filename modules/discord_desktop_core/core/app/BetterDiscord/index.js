@@ -385,7 +385,8 @@ async function privateInit(){
         dispatcher.subscribe(constants.ActionTypes.CONNECTION_OPEN || "CONNECTION_OPEN", onConn)
     }*/
 
-    const BetterDiscord = new(require(formatMinified("../../../../../BetterDiscordApp/dist/index{min}.js")).default)(BetterDiscordConfig, require("./betterdiscord"))
+    const BetterDiscordModule = await require(formatMinified("../../../../../BetterDiscordApp/dist/index{min}.js"));
+    const BetterDiscord = new BetterDiscordModule.BetterDiscord.default(BetterDiscordConfig, require("./betterdiscord"));
 
     const Utils = window.Lightcord.BetterDiscord.Utils
     const DOMTools = window.Lightcord.BetterDiscord.DOM

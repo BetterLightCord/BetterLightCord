@@ -4,14 +4,14 @@
     "description": "Enhances Discord adding functionality and themes.",
     "main": "src/index.js",
     "scripts": {
-        "build": "webpack --progress --colors",
-        "watch": "webpack --progress --colors --watch",
-        "build-prod": "webpack --progress --colors --config prod.config.js",
-        "watch-prod": "webpack --progress --colors --watch --config prod.config.js",
+        "build": "webpack --progress",
+        "watch": "webpack --progress --watch",
+        "build-prod": "webpack --progress --config prod.config.js",
+        "watch-prod": "webpack --progress --watch --config prod.config.js",
         "test": "echo \"Error: no test specified\" && exit 1",
         "minify-css": "node minify-css.js",
         "watch-css": "node minify-css.js --watch",
-        "deploy": "npm run build-prod && npm run minify-css"
+        "deploy": "yarn build-prod && yarn minify-css"
     },
     "repository": {
         "type": "git",
@@ -24,14 +24,14 @@
     },
     "homepage": "https://github.com/rauenzi/BetterDiscordApp#readme",
     "devDependencies": {
-        "@babel/core": "^7.10.5",
-        "@babel/preset-env": "^7.10.4",
-        "@babel/preset-react": "^7.10.4",
-        "@babel/register": "^7.10.5",
-        "babel-loader": "^8.1.0",
-        "circular-dependency-plugin": "^5.2.0",
-        "clean-css": "^4.2.3",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12"
+        "@babel/core": "^7.14.8",
+        "@babel/preset-env": "^7.14.9",
+        "@babel/preset-react": "^7.14.5",
+        "@babel/register": "^7.14.5",
+        "babel-loader": "^8.2.2",
+        "circular-dependency-plugin": "^5.2.2",
+        "clean-css": "^5.1.4",
+        "webpack": "^5.48.0",
+        "webpack-cli": "^4.7.2"
     }
 }

@@ -19,12 +19,12 @@ function saferShellOpenExternal(externalUrl) {
   try {
     parsedUrl = _url["default"].parse(externalUrl);
   } catch (_) {
-    return;
+    return Promise.reject();
   }
 
   if (parsedUrl.protocol == null || BLOCKED_URL_PROTOCOLS.includes(parsedUrl.protocol.toLowerCase())) {
-    return;
+    return Promise.reject();
   }
 
-  _electron.shell.openExternal(externalUrl);
+  return _electron.shell.openExternal(externalUrl);
 }
