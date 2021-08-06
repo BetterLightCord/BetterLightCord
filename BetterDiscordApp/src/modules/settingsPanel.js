@@ -118,157 +118,133 @@ export default new class V2_SettingsPanel {
     updateSettings(id, enabled, sidebar) {
         if(!["lightcord-8", "no_window_bound", "enable_glasstron", "lightcord-10", "lightcord-11"].includes(id))settingsCookie[id] = enabled;
 
-        if (id == "bda-gs-2") {
-            if (enabled) DOM.addClass(document.body, "bd-minimal");
-            else DOM.removeClass(document.body, "bd-minimal");
-        }
-
-        if (id == "bda-gs-3") {
-            if (enabled) DOM.addClass(document.body, "bd-minimal-chan");
-            else DOM.removeClass(document.body, "bd-minimal-chan");
-        }
-
-        if (id == "bda-gs-1") {
-            if (enabled) publicServersModule.addButton();
-            else publicServersModule.removeButton();
-        }
-
-        if (id == "bda-gs-4") {
-            if (enabled) voiceMode.start();
-            else voiceMode.stop();
-        }
-
-        if (id == "bda-gs-5") {
-            if (enabled) DOM.addClass(DOM.query("#app-mount"), "bda-dark");
-            else DOM.removeClass(DOM.query("#app-mount"), "bda-dark");
-        }
-
-        if (enabled && id == "bda-gs-6") tfHour.inject24Hour();
-
-        if (id == "bda-gs-7") {
-            if (enabled) coloredText.injectColoredText();
-            else coloredText.removeColoredText();
-        }
-
-        if (id == "fork-ps-4") {
-            if (enabled) ClassNormalizer.start();
-            else ClassNormalizer.stop();
-        }
-
-        if (id == "fork-ps-5") {
-            if (enabled) {
-                ContentManager.watchContent("plugin");
-                ContentManager.watchContent("theme");
-            }
-            else {
-                ContentManager.unwatchContent("plugin");
-                ContentManager.unwatchContent("theme");
-            }
-        }
-
-        if (id == "fork-wp-1") {
-            Utils.setWindowPreference("transparent", enabled);
-            if (enabled) Utils.setWindowPreference("backgroundColor", null);
-            else Utils.setWindowPreference("backgroundColor", "#2f3136");
-        }
-
-
-        if (id == "bda-gs-8") {
-            if (enabled) dMode.startDebugListener();
-            else dMode.stopDebugListener();
-        }
-
-        if (id == "fork-dm-1") {
-            if (enabled) dMode.startCopySelector();
-            else dMode.stopCopySelector();
-        }
-
-        if (id === "lightcord-1") {
-            if (enabled) window.Lightcord.Settings.devMode = true
-            else window.Lightcord.Settings.devMode = false
-            sidebar.forceUpdate()
-        }
-        if (id === "lightcord-2") {
-            if (enabled) window.Lightcord.Settings.callRingingBeat = true
-            else window.Lightcord.Settings.callRingingBeat = false
-        }
-        if (id === "lightcord-presence-1") {
-            if (enabled) {
-                CustomRichPresence.enable()
-                const settingsStore = BDModules.get(e => e.default && typeof e.default === "object" && "showCurrentGame" in e.default)[0]
-                if(settingsStore && !settingsStore.default.showCurrentGame){
-                    BDModules.get(e => e.default && e.default.updateRemoteSettings)[0].default.updateRemoteSettings({
-                        showCurrentGame: true
-                    })
+        switch(id) {
+            case "bda-gs-1":
+                if (enabled) publicServersModule.addButton();
+                else publicServersModule.removeButton();
+                break;
+            case "bda-gs-2":
+                if (enabled) DOM.addClass(document.body, "bd-minimal");
+                else DOM.removeClass(document.body, "bd-minimal");
+                break;
+            case "bda-gs-3":
+                if (enabled) DOM.addClass(document.body, "bd-minimal-chan");
+                else DOM.removeClass(document.body, "bd-minimal-chan");
+                break;
+            case "bda-gs-4":
+                if (enabled) voiceMode.start();
+                else voiceMode.stop();
+                break;
+            case "bda-gs-5":
+                if (enabled) DOM.addClass(DOM.query("#app-mount"), "bda-dark");
+                else DOM.removeClass(DOM.query("#app-mount"), "bda-dark");
+                break;
+            case "bda-gs-6":
+                if (enabled) tfHour.inject24Hour();
+                break;
+            case "bda-gs-7":
+                if (enabled) coloredText.injectColoredText();
+                else coloredText.removeColoredText();
+                break;
+            case "bda-gs-8":
+                if (enabled) dMode.startDebugListener();
+                else dMode.stopDebugListener();
+                break;
+            case "fork-ps-4":
+                if (enabled) ClassNormalizer.start();
+                else ClassNormalizer.stop();
+                break;
+            case "fork-ps-5":
+                if (enabled) {
+                    ContentManager.watchContent("plugin");
+                    ContentManager.watchContent("theme");
                 }
-            }
-            else CustomRichPresence.disable()
-        }
-        if (id === "lightcord-3") {
-            ipcRenderer.sendSync("LIGHTCORD_SET_ALWAYS_ON_TOP", enabled)
-        }
-        if (id === "lightcord-4") {
-            if(enabled){
-                AntiAdDM.enable()
-            }else{
-                AntiAdDM.disable()
-            }
-        }
-        if (id === "lightcord-6") {
-            if(enabled){
-                blurPrivate.enable()
-            }else{
-                blurPrivate.disable()
-            }
-        }
-        if (id === "lightcord-7") {
-            if(enabled){
-                disableTyping.enable()
-            }else{
-                disableTyping.disable()
-            }
-        }
-        if (id === "lightcord-8"){
-            let appSettings = window.Lightcord.Api.settings
-            appSettings.set("isTabs", enabled)
-            appSettings.save()
-            DiscordNative.app.relaunch()
-        }
-        if (id === "lightcord-9") {
-            popoutWindow[enabled ? "enable" : "disable"]()
-        }
-        if (id === "lightcord-10"){
-            core.methods.NotificationsUseShim(enabled)
-            return
-        }
-        if (id === "no_window_bound"){
-            let appSettings = window.Lightcord.Api.settings
-            appSettings.set("NO_WINDOWS_BOUND", enabled)
-
-            appSettings.delete("IS_MAXIMIZED")
-            appSettings.delete("IS_MINIMIZED") 
-            appSettings.delete("WINDOW_BOUNDS")
-            
-            appSettings.save()
-            DiscordNative.app.relaunch()
-        }
-        if (id === "enable_glasstron"){
-            let appSettings = window.Lightcord.Api.settings
-            appSettings.set("GLASSTRON", enabled)
-            appSettings.save()
-            DiscordNative.app.relaunch()
-        }
-        
-        if(id === "lightcord-11"){
-            let appSettings = window.Lightcord.Api.settings
-            if(!enabled){
-                appSettings.delete("BD_"+id)
+                else {
+                    ContentManager.unwatchContent("plugin");
+                    ContentManager.unwatchContent("theme");
+                }
+                break;
+            case "fork-wp-1":
+                Utils.setWindowPreference("transparent", enabled);
+                if (enabled) Utils.setWindowPreference("backgroundColor", null);
+                else Utils.setWindowPreference("backgroundColor", "#2f3136");
+                break;
+            case "fork-dm-1":
+                if (enabled) dMode.startCopySelector();
+                else dMode.stopCopySelector();
+                break;
+            case "lightcord-1":
+                if (enabled) window.Lightcord.Settings.devMode = true
+                else window.Lightcord.Settings.devMode = false
+                sidebar.forceUpdate()
+                break;
+            case "lightcord-2":
+                if (enabled) window.Lightcord.Settings.callRingingBeat = true
+                else window.Lightcord.Settings.callRingingBeat = false
+                break;
+            case "lightcord-3":
+                ipcRenderer.sendSync("LIGHTCORD_SET_ALWAYS_ON_TOP", enabled)
+                break;
+            case "lightcord-4":
+                enabled ?  AntiAdDM.enable() : AntiAdDM.disable()
+                break;
+            case "lightcord-6":
+                enabled ? blurPrivate.enable() : blurPrivate.disable()
+                break;
+            case "lightcord-7":
+                enabled ? disableTyping.enable() : disableTyping.disable()
+                break;
+            case "lightcord-8":
+                let appSettings = window.Lightcord.Api.settings
+                appSettings.set("isTabs", enabled)
+                appSettings.save()
+                DiscordNative.app.relaunch()
+                break;
+            case "lightcord-9":
+                enabled ? popoutWindow.enable() : popoutWindow.disable()
+                break;
+            case "lightcord-10":
+                core.methods.NotificationsUseShim(enabled)
+                return;
+            case "lightcord-11":
+                let appSettings = window.Lightcord.Api.settings
+                if(!enabled){
+                    appSettings.delete("BD_"+id)
+                    appSettings.save()
+                    return
+                }
+                appSettings.set("BD_"+id, enabled)
                 appSettings.save()
                 return
-            }
-            appSettings.set("BD_"+id, enabled)
-            appSettings.save()
-            return
+            case "lightcord-presence-1":
+                if (enabled) {
+                    CustomRichPresence.enable()
+                    const settingsStore = BDModules.get(e => e.default && typeof e.default === "object" && "showCurrentGame" in e.default)[0]
+                    if(settingsStore && !settingsStore.default.showCurrentGame){
+                        BDModules.get(e => e.default && e.default.updateRemoteSettings)[0].default.updateRemoteSettings({
+                            showCurrentGame: true
+                        })
+                    }
+                }
+                else CustomRichPresence.disable()
+                break;
+            case "no_window_bound": 
+                let appSettings = window.Lightcord.Api.settings
+                appSettings.set("NO_WINDOWS_BOUND", enabled)
+
+                appSettings.delete("IS_MAXIMIZED")
+                appSettings.delete("IS_MINIMIZED") 
+                appSettings.delete("WINDOW_BOUNDS")
+                
+                appSettings.save()
+                DiscordNative.app.relaunch()
+                break;
+            case "enable_glasstron":
+                let appSettings = window.Lightcord.Api.settings
+                appSettings.set("GLASSTRON", enabled)
+                appSettings.save()
+                DiscordNative.app.relaunch()
+                break;
         }
 
         this.saveSettings();
