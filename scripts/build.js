@@ -110,7 +110,7 @@ async function main(){
     
     console.info("Reseting existent directory...")
     try{
-    	await fs.promises.rmdir("./distApp", {"recursive": true})
+    	await fs.promises.rm("./distApp", {"recursive": true})
     } catch (error) {
 	    console.error(error);
 	}
