@@ -17,11 +17,12 @@ let emojiSearch = BDModules.get(e => e.default && e.default.getDisambiguatedEmoj
 const appSettings = Lightcord.Api.settings
 
 export default new class EmojiModule {
-    constructor(){
-        this.init().catch(err => Utils.err("EmojiModule", "An error occured", err)) // better logging
+
+    constructor() {
+        this.init().catch(err => Utils.err("EmojiModule", "An error occured", err))
     }
 
-    async init(){
+    async init() {
         /** Emoji AutoComplete */
         if(!AutocompleteModule)AutocompleteModule = await window.Lightcord.Api.ensureExported(e => e.default && e.default.displayName === "Autocomplete")
         if(!AutoCompletionTemplates)AutoCompletionTemplates = await window.Lightcord.Api.ensureExported(e => e.getAutocompleteOptions)
@@ -38,7 +39,7 @@ export default new class EmojiModule {
         }
 
         if(AutocompleteModule && AutoCompletionTemplates && EmojiModuleQuery && Messages && guildModule && emojiSearch){
-            console.log(`Patching getAutocompleteOptions of AutoCompletionTemplates`, AutoCompletionTemplates)
+            Utils.log("EmojiModule", `Patching getAutocompleteOptions of AutoCompletionTemplates`, AutoCompletionTemplates)
             const getAutocompleteOptions = AutoCompletionTemplates.getAutocompleteOptions
             AutoCompletionTemplates.getAutocompleteOptions = function(e, t, n, r, a){
                 const value = getAutocompleteOptions.call(this, ...arguments)
@@ -81,20 +82,20 @@ export default new class EmojiModule {
                 }
                 return value
             }
-        }else{
-            console.error(new Error("Couldn't start autocompletion of Lightcord's emojis."))
+        } else {
+            Utils.err("EmojiModule", "Couldn't start auto-completion of Lightcord's emojis.")
         }
 
         /** Emoji display */
         while (!BDV2.MessageComponent) await new Promise(resolve => setTimeout(resolve, 100));
 
-        if (!this.cancelEmojiRender){ // TODO: Proper emoji formatting / rendering
+        if (!this.cancelEmojiRender) { // TODO: Proper emoji formatting / rendering
             this.cancelEmoteRender = Utils.monkeyPatch(BDV2.MessageComponent, "default", {before: (data) => {
                 const message = Utils.getNestedProp(data.methodArguments[0], "childrenMessageContent.props.message")
                 if(!message)return
                 const content = Utils.getNestedProp(data.methodArguments[0], "childrenMessageContent.props.content")
                 if(!content || !content.length)return
-    
+
                 /**
                  * @type {{
                  *  raw: string,
@@ -104,16 +105,16 @@ export default new class EmojiModule {
                  * }[]}
                  */
                 let emojis = []
-                
+
                 const newContent = []
-                for(let node of content){
+                for(let node of content) {
                     if (typeof(node) !== "string") {
                         newContent.push(node)
                         continue
-                    };
+                    }
                     let parsed;
                     let hasParsed = false
-        
+
                     do {
                         parsed = Constants.EmojiRegex.exec(node);
                         if (parsed) {
@@ -137,7 +138,7 @@ export default new class EmojiModule {
                             }
                         }
                     } while (parsed);
-    
+
                     if(hasParsed){
                         const words = node.split(" ").map((word, index, arr) => {
                             if(!word)return ""
@@ -197,7 +198,7 @@ export default new class EmojiModule {
                         emojiDescriptors: this.props.emojiDescriptors.map(e => {
                             e.isDisabled = false
                         })
-                    }))                    
+                    }))
                 }
             }
             EmojiPickerListRow.default.displayName = "EmojiPickerListRow"
@@ -211,7 +212,7 @@ export default new class EmojiModule {
     }
 
     start(){
-        
+
     }
 }
 
