@@ -42,7 +42,7 @@
     "@types/rimraf": "^3.0.2",
     "@types/uuid": "^8.3.1",
     "@types/yauzl": "^2.9.2",
-    "asar": "^3.0.3",
+    "asar": "^3.2.0",
     "dotenv": "^10.0.0",
     "electron": "^14.0.0",
     "electron-builder": "^22.11.7",
