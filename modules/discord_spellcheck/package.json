@@ -15,7 +15,7 @@
     "inflight": "^1.0.6",
     "inherits": "^2.0.4",
     "keyboard-layout": "^2.0.17",
-    "minimatch": "^3.0.4",
+    "minimatch": "^3.0.5",
     "nan": "^2.14.2",
     "node-addon-api": "^1.7.2",
     "once": "^1.4.0",
