@@ -32,7 +32,7 @@
     "p-finally": "^2.0.1",
     "path-key": "^2.0.1",
     "pump": "^3.0.0",
-    "qs": "^6.9.6",
+    "qs": "^6.9.7",
     "readable-stream": "^3.6.0",
     "safe-buffer": "^5.2.1",
     "semver": "^6.3.0",
